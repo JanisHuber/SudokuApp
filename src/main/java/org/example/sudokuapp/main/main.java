@@ -1,6 +1,7 @@
 package org.example.sudokuapp.main;
 
 import org.example.sudokuapp.SudokuSolver;
+import org.example.sudokuapp.sudokugenerating.GeneratingSudoku;
 
 import java.util.Arrays;
 
@@ -43,9 +44,15 @@ public class main {
                 {0, 0, 0, 0, '8', 0, 0, '7', '9'}
         };
 
-        Sudoku sudoku = new Sudoku(char3);
+        /*Sudoku sudoku = new Sudoku(char3);
         SudokuSolver solver = new SudokuSolver();
 
-        System.out.println(solver.solve(sudoku).getSudoku());
+        System.out.println(Arrays.deepToString(solver.solve(sudoku).getSudoku()));*/
+
+        GeneratingSudoku generator = new GeneratingSudoku();
+
+        Sudoku s = generator.generateSudoku(80);
+
+        System.out.println("Generated Sudoku: " + Arrays.deepToString(s.getSudoku()));
     }
 }

@@ -1,17 +1,14 @@
 package org.example.sudokuapp.sudokugenerating;
 
+import org.example.sudokuapp.SudokuSolver;
 import org.example.sudokuapp.main.Sudoku;
-import org.example.sudokuapp.main.SudokuTester;
 
 import java.util.Arrays;
 
 public class GeneratingSudoku {
 
     public Sudoku generateSudoku(Integer difficulty) {
-        boolean isValid = false;
-        Sudoku sudoku = null;
-
-        while (!isValid) {
+        while (true) {
             char[][] sudokuChar = new char[9][9];
 
             for (int i = 0; i < difficulty; i++) {
@@ -23,15 +20,21 @@ public class GeneratingSudoku {
                     sudokuChar[row][col] = (char) (value + '0');
                 }
             }
-            System.out.println(Arrays.deepToString(sudokuChar));
 
-            if (SudokuTester.isSudokuValid(new Sudoku(sudokuChar))) {
-                System.out.println("Sudoku generated");
-                isValid = true;
-                sudoku = new Sudoku(sudokuChar);
+            if (new SudokuSolver().solve(new Sudoku(getCopy(sudokuChar))) != null) {
+                return new Sudoku(sudokuChar);
             }
         }
+    }
 
-        return sudoku;
+
+    private char[][] getCopy(char[][] original) {
+        char[][] copy = new char[9][9];
+        for (int r = 0; r < 9; r++) {
+            for (int c = 0; c < 9; c++) {
+                copy[r][c] = original[r][c];
+            }
+        }
+        return copy;
     }
 }

@@ -4,46 +4,33 @@ import org.example.sudokuapp.main.Coordinates;
 import org.example.sudokuapp.main.Sudoku;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 public class SudokuSolver {
     Random random = new Random();
     List<Coordinates> blockedCells = new ArrayList<>();
-
-    public SudokuSolver() {
-    }
-
+    Sudoku solvedSudoku = null;
 
     public Sudoku solve(Sudoku sudoku) {
-        Sudoku solvedSudoku = null;
         setBlockedCells(sudoku);
 
-        System.out.println(Arrays.deepToString(sudoku.getSudoku()));
-
-        boolean isSolveable = backtracking(sudoku.getSudoku(), 0, 0, 0);
-        System.out.println(isSolveable);
+        if (!backtracking(sudoku.getSudoku(), 0, 0, 0)) {
+            return null;
+        }
 
         return solvedSudoku;
     }
 
     private boolean backtracking(char[][] sudoku, int x, int y, int path) {
         if (y == 9) {
-            for (char[] row : sudoku) {
-                for (char c : row) {
-                    System.out.print(c + " ");
-                }
-                System.out.println();
-            }
             return true;
         }
 
         int nextX = (x + 1) % 9;
         int nextY = (nextX == 0) ? y + 1 : y;
 
-        Coordinates currentCoordinates = new Coordinates(y, x);
-        if (blockedCells.contains(currentCoordinates)) {
+        if (blockedCells.contains(new Coordinates(y, x))) {
             return backtracking(sudoku, nextX, nextY, path + 1);
         }
 
@@ -51,12 +38,12 @@ public class SudokuSolver {
             if (isValid(sudoku, x, y, (char) (num + '0'))) {
                 sudoku[y][x] = (char) (num + '0');
                 if (backtracking(sudoku, nextX, nextY, path + 1)) {
+                    solvedSudoku = new Sudoku(sudoku);
                     return true;
                 }
                 sudoku[y][x] = '\u0000';
             }
         }
-
         return false;
     }
 
