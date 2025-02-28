@@ -49,10 +49,9 @@ public class main {
 
         System.out.println(Arrays.deepToString(solver.solve(sudoku).getSudoku()));*/
 
-        GeneratingSudoku generator = new GeneratingSudoku();
+        GeneratingSudoku s = new GeneratingSudoku();
+        Sudoku result = s.generateSudoku(100);
 
-        Sudoku s = generator.generateSudoku(80);
-
-        System.out.println("Generated Sudoku: " + Arrays.deepToString(s.getSudoku()));
+        System.out.println("Generated Sudoku: " + Arrays.deepToString(result.getSudoku()));
     }
 }

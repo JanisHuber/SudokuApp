@@ -4,8 +4,11 @@ import org.example.sudokuapp.main.Coordinates;
 import org.example.sudokuapp.main.Sudoku;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class SudokuSolver {
     Random random = new Random();
@@ -21,6 +24,24 @@ public class SudokuSolver {
 
         return solvedSudoku;
     }
+
+    public char[][] getNextStep(char[][] oldBoard) {
+        char[][] newBoard = solve(new Sudoku(oldBoard)).getSudoku();
+        int temp = 0;
+
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (oldBoard[i][j] != '\u0000') {
+                    newBoard[i][j] = oldBoard[i][j];
+                } else if (temp > 0){
+                    newBoard[i][j] = '\u0000';
+                    temp++;
+                }
+            }
+        }
+        return newBoard;
+    }
+
 
     private boolean backtracking(char[][] sudoku, int x, int y, int path) {
         if (y == 9) {
@@ -47,17 +68,9 @@ public class SudokuSolver {
         return false;
     }
 
-    private int[] getShuffledNumbers() {
-        int[] numbers = new int[9];
-        for (int i = 0; i < 9; i++) {
-            numbers[i] = i + 1;
-        }
-        for (int i = 9 - 1; i > 0; i--) {
-            int j = random.nextInt(i + 1);
-            int temp = numbers[i];
-            numbers[i] = numbers[j];
-            numbers[j] = temp;
-        }
+    private List<Integer> getShuffledNumbers() {
+        List<Integer> numbers = IntStream.range(1, 10).boxed().collect(Collectors.toList());
+        Collections.shuffle(numbers, random);
         return numbers;
     }
 

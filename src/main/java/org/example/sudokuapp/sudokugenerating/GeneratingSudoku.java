@@ -3,12 +3,18 @@ package org.example.sudokuapp.sudokugenerating;
 import org.example.sudokuapp.SudokuSolver;
 import org.example.sudokuapp.main.Sudoku;
 
-import java.util.Arrays;
-
 public class GeneratingSudoku {
 
     public Sudoku generateSudoku(Integer difficulty) {
-        while (true) {
+        char[][] result = new SudokuSolver().solve(new Sudoku(new char[9][9])).getSudoku();
+        for (int i = 0; i < difficulty / 10; i++) {
+            int row = (int) (Math.random() * 9);
+            int col = (int) (Math.random() * 9);
+            result[row][col] = 0;
+        }
+        return new Sudoku(result);
+
+        /*while (true) {
             char[][] sudokuChar = new char[9][9];
 
             for (int i = 0; i < difficulty; i++) {
@@ -24,7 +30,7 @@ public class GeneratingSudoku {
             if (new SudokuSolver().solve(new Sudoku(getCopy(sudokuChar))) != null) {
                 return new Sudoku(sudokuChar);
             }
-        }
+        }*/
     }
 
 

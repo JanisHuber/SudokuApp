@@ -1,22 +1,38 @@
 package org.example.sudokuapp.main;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Sudoku {
     private char[][] sudoku;
-    private List<char[][]> tiles;
+    //private List<char[][]> tiles;
 
     public Sudoku(char[][] sudoku) {
         this.sudoku = sudoku;
-        this.tiles = getTiles(sudoku);
+        //this.tiles = getTiles(sudoku);
     }
 
     public char[][] getSudoku() {
         return sudoku;
     }
 
-    public List<Integer> getTilesValue() {
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Sudoku)) {
+            return false;
+        }
+
+        Sudoku sudoku = (Sudoku) obj;
+        return Arrays.deepEquals(this.sudoku, sudoku.getSudoku());
+    }
+
+
+    /*public List<Integer> getTilesValue() {
         List<Integer> tileValues = new ArrayList<>();
 
         for (char[][] tile : tiles) {
@@ -43,11 +59,9 @@ public class Sudoku {
                         tile[row][col] = sudoku[blockRow + row][blockCol + col];
                     }
                 }
-
                 tiles.add(tile);
             }
         }
-
         return tiles;
-    }
+    }*/
 }
