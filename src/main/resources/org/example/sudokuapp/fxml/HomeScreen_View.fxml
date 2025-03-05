@@ -2,15 +2,46 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="org.example.sudokuapp.ui.HomeScreen_ViewController">
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.sudokuapp.ui.HomeScreen_ViewController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
    <children>
-      <Button mnemonicParsing="false" onMouseClicked="#link_GenerateSudoku" text="Generate Sudoku" />
-      <Button mnemonicParsing="false" onMouseClicked="#link_SolveSudoku" text="Solve Sudoku" />
-      <Button mnemonicParsing="false" onMouseClicked="#link_UploadSudoku" text="Upload Sudoku" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sudoku App">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="306.0" fitWidth="487.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../images/sudoku-4455317.jpg" />
+         </image>
+      </ImageView>
+      <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="ALWAYS">
+         <children>
+            <Button mnemonicParsing="false" onMouseClicked="#link_GenerateSudoku" stylesheets="@../../../../stylesheets/ButtonStyles.css" text="Generate Sudoku" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onMouseClicked="#link_SolveSudoku" stylesheets="@../../../../stylesheets/ButtonStyles.css" text="Solve Sudoku" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onMouseClicked="#link_UploadSudoku" stylesheets="@../../../../stylesheets/ButtonStyles.css" text="Upload Sudoku" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
    </children>
 </VBox>

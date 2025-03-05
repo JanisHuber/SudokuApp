@@ -17,11 +17,9 @@ import javax.swing.text.html.HTML;
 
 public class Sudoku {
     private char[][] sudoku;
-    //private List<char[][]> tiles;
 
     public Sudoku(char[][] sudoku) {
         this.sudoku = sudoku;
-        //this.tiles = getTiles(sudoku);
     }
 
     public char[][] getSudoku() {
@@ -52,10 +50,12 @@ public class Sudoku {
         return copy;
     }
 
-    public void saveAsPDF() {
+    public void saveAsPDF(String name, String path) {
         String html = getHtmlCode();
 
-        try (OutputStream os = new FileOutputStream("sudoku.pdf")) {
+        String fullPath = path + File.separator + name + ".pdf";
+
+        try (OutputStream os = new FileOutputStream(fullPath)) {
             PdfRendererBuilder builder = new PdfRendererBuilder();
             builder.useFastMode();
             builder.withHtmlContent(html, new File(".").toURI().toString());

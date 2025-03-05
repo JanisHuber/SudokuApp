@@ -28,7 +28,7 @@ public class HomeScreen_ViewController {
     }
 
     public void link_SolveSudoku() throws IOException {
-        root = FXMLLoader.load(getClass().getResource("/org/example/sudokuapp/fxml/GenerateSudoku_View.fxml"));
+        root = FXMLLoader.load(getClass().getResource("/org/example/sudokuapp/fxml/SolveSudoku_View.fxml"));
         stage = (Stage) stage.getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -37,7 +37,7 @@ public class HomeScreen_ViewController {
     }
 
     public void link_UploadSudoku() throws IOException {
-        root = FXMLLoader.load(getClass().getResource("/org/example/sudokuapp/fxml/GenerateSudoku_View.fxml"));
+        root = FXMLLoader.load(getClass().getResource("/org/example/sudokuapp/fxml/UploadSudoku_View.fxml"));
         stage = (Stage) stage.getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

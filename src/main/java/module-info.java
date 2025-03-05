@@ -9,8 +9,7 @@ module org.example.sudokuapp {
     requires tess4j;
     requires org.bytedeco.opencv;
 
-    opens org.example.sudokuapp to javafx.fxml;
-    exports org.example.sudokuapp;
+
     exports org.example.sudokuapp.ui;
     opens org.example.sudokuapp.ui to javafx.fxml;
     exports org.example.sudokuapp.logic;
