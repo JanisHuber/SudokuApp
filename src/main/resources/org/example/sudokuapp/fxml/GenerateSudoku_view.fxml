@@ -7,12 +7,27 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.sudokuapp.ui.GenerateSudoku_ViewController">
 
    <children>
+      <HBox prefHeight="78.0" prefWidth="600.0">
+         <children>
+            <Button mnemonicParsing="false" onMouseClicked="#view_BackHome" stylesheets="@../../../../stylesheets/ButtonStyles.css" text="&lt;- Home" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets left="15.0" top="15.0" />
+               </HBox.margin></Button>
+            <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+            <Button layoutX="25.0" layoutY="25.0" mnemonicParsing="false" onMouseClicked="#view_ExportSudoku" prefHeight="36.0" prefWidth="131.0" stylesheets="@../../../../stylesheets/ButtonStyles.css" text="Export Sudoku">
+               <HBox.margin>
+                  <Insets right="15.0" top="15.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
       <GridPane fx:id="gridPane_Sudoku" maxHeight="600" maxWidth="600" VBox.vgrow="ALWAYS">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="11.11" />
@@ -676,10 +691,7 @@
                   <Insets top="3.0" />
                </HBox.margin>
             </TextField>
-            <Button mnemonicParsing="false" onMouseClicked="#view_GenerateSudoku" stylesheets="@../../../../stylesheets/ButtonStyles.css" text="Generate" HBox.hgrow="ALWAYS">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin></Button>
+            <Button layoutX="520.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#view_GenerateSudoku" stylesheets="@../../../../stylesheets/ButtonStyles.css" text="Generate" />
          </children>
       </HBox>
    </children>

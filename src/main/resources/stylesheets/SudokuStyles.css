@@ -1,4 +1,3 @@
-/* Basisstil für alle Zellen */
 .sudoku-cell {
     -fx-alignment: center;
     -fx-font-size: 18px;
@@ -8,7 +7,6 @@
     -fx-border-width: 0.5px;
 }
 
-/* Standardseiten für Nicht-Eckzellen */
 .top-border {
     -fx-border-color: black;
     -fx-border-width: 2px 0px 0px 0px;
@@ -26,7 +24,6 @@
     -fx-border-width: 0px 0px 2px 0px;
 }
 
-/* Ecken: Hier wird die Kombination beider Seiten gesetzt */
 .top-left-corner {
     -fx-border-color: black;
     -fx-border-width: 2px 0px 0px 2px;

@@ -30,7 +30,6 @@ public class SudokuSolver {
 
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                System.out.println(oldBoard[i][j]);
                 if (oldBoard[i][j] != '\u0000') {
                     newBoard[i][j] = oldBoard[i][j];
                 } else {
@@ -100,7 +99,6 @@ public class SudokuSolver {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 if (sudoku.getSudoku()[i][j] != '\u0000') {
-                    System.out.println(sudoku.getSudoku()[i][j]);
                     blockedCells.add(new Coordinates(i, j));
                 }
             }

@@ -12,12 +12,12 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/org/example/sudokuapp/fxml/HomeScreen_View.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 800, 800);
+        Scene scene = new Scene(fxmlLoader.load(), 800, 700);
 
-        HomeScreen_ViewController controller =fxmlLoader.getController();
+        HomeScreen_ViewController controller = fxmlLoader.getController();
         controller.setStage(stage);
 
-        stage.setTitle("Sudoku-App");
+        stage.setTitle("Sudoku App");
         stage.setScene(scene);
         stage.show();
     }
