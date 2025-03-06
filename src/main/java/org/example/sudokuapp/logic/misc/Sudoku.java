@@ -1,25 +1,27 @@
-package org.example.sudokuapp.logic;
+package org.example.sudokuapp.logic.misc;
+
+import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Arrays;
-
-import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-
-import javax.swing.text.html.HTML;
 
 public class Sudoku {
     private char[][] sudoku;
 
     public Sudoku(char[][] sudoku) {
         this.sudoku = sudoku;
+    }
+
+    public char[][] getCopy() {
+        char[][] copy = new char[9][9];
+        for (int r = 0; r < 9; r++) {
+            for (int c = 0; c < 9; c++) {
+                copy[r][c] = sudoku[r][c];
+            }
+        }
+        return copy;
     }
 
     public char[][] getSudoku() {
@@ -40,20 +42,8 @@ public class Sudoku {
         return Arrays.deepEquals(this.sudoku, sudoku.getSudoku());
     }
 
-    public static char[][] getCopy(char[][] original) {
-        char[][] copy = new char[9][9];
-        for (int r = 0; r < 9; r++) {
-            for (int c = 0; c < 9; c++) {
-                copy[r][c] = original[r][c];
-            }
-        }
-        return copy;
-    }
-
-    public void saveAsPDF(String name, String path) {
+    public void saveAsPDF(String fullPath) {
         String html = getHtmlCode();
-
-        String fullPath = path + File.separator + name + ".pdf";
 
         try (OutputStream os = new FileOutputStream(fullPath)) {
             PdfRendererBuilder builder = new PdfRendererBuilder();
@@ -66,7 +56,7 @@ public class Sudoku {
             e.printStackTrace();
         }
     }
-    
+
     private String getHtmlCode() {
         StringBuilder html = new StringBuilder();
 
@@ -125,5 +115,18 @@ public class Sudoku {
                         </html>
                 """);
         return html.toString();
+    }
+
+    public int getSize() {
+        int result = 0;
+
+        for (char[] row : sudoku) {
+            for (char c : row) {
+                if (c != '\u0000') {
+                    result++;
+                }
+            }
+        }
+        return result;
     }
 }

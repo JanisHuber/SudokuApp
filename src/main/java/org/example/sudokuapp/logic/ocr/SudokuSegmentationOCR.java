@@ -1,11 +1,11 @@
-package org.example.sudokuapp.logic;
+package org.example.sudokuapp.logic.ocr;
 
-import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import static org.example.sudokuapp.logic.SudokuOCR.performOCR;
+import static org.example.sudokuapp.logic.ocr.SudokuOCR.performOCR;
 
 public class SudokuSegmentationOCR {
 
@@ -42,7 +42,7 @@ public class SudokuSegmentationOCR {
                 }
             }
 
-        return sudokuArray;
+            return sudokuArray;
         } catch (IOException e) {
             e.printStackTrace();
         }

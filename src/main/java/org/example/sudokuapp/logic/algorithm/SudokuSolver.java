@@ -1,4 +1,7 @@
-package org.example.sudokuapp.logic;
+package org.example.sudokuapp.logic.algorithm;
+
+import org.example.sudokuapp.logic.misc.Coordinates;
+import org.example.sudokuapp.logic.misc.Sudoku;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -75,7 +78,7 @@ public class SudokuSolver {
         return numbers;
     }
 
-    private boolean isValid(char[][] board, int x, int y, char num) {
+    public boolean isValid(char[][] board, int x, int y, char num) {
         for (int i = 0; i < 9; i++) {
             if (board[y][i] == num || board[i][x] == num) {
                 return false;
@@ -84,6 +87,7 @@ public class SudokuSolver {
 
         int subGridRow = (y / 3) * 3;
         int subGridCol = (x / 3) * 3;
+
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (board[subGridRow + i][subGridCol + j] == num) {
@@ -117,6 +121,19 @@ public class SudokuSolver {
                 }
             }
         }
+
         return result;
+    }
+
+    private void forEachCell(CellAction action) {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                action.execute(i, j);
+            }
+        }
+    }
+
+    interface CellAction {
+        void execute(int row, int col);
     }
 }

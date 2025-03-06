@@ -1,7 +1,7 @@
 package org.example.sudokuapp.logic.sudokugenerating;
 
-import org.example.sudokuapp.logic.GeneratingSudoku;
-import org.example.sudokuapp.logic.Sudoku;
+import org.example.sudokuapp.logic.algorithm.GeneratingSudoku;
+import org.example.sudokuapp.logic.misc.Sudoku;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;

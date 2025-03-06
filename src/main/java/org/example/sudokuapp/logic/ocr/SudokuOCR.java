@@ -1,6 +1,10 @@
-package org.example.sudokuapp.logic;
+package org.example.sudokuapp.logic.ocr;
 
-import net.sourceforge.tess4j.*;
+import net.sourceforge.tess4j.ITessAPI;
+import net.sourceforge.tess4j.ITesseract;
+import net.sourceforge.tess4j.Tesseract;
+import net.sourceforge.tess4j.TesseractException;
+
 import java.awt.image.BufferedImage;
 
 public class SudokuOCR {

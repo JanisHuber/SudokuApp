@@ -12,8 +12,14 @@ module org.example.sudokuapp {
 
     exports org.example.sudokuapp.ui;
     opens org.example.sudokuapp.ui to javafx.fxml;
-    exports org.example.sudokuapp.logic;
-    opens org.example.sudokuapp.logic to javafx.fxml;
     exports org.example.sudokuapp.main;
     opens org.example.sudokuapp.main to javafx.fxml;
+    exports org.example.sudokuapp.ui.controller;
+    opens org.example.sudokuapp.ui.controller to javafx.fxml;
+    exports org.example.sudokuapp.logic.misc;
+    opens org.example.sudokuapp.logic.misc to javafx.fxml;
+    exports org.example.sudokuapp.logic.ocr;
+    opens org.example.sudokuapp.logic.ocr to javafx.fxml;
+    exports org.example.sudokuapp.logic.algorithm;
+    opens org.example.sudokuapp.logic.algorithm to javafx.fxml;
 }
