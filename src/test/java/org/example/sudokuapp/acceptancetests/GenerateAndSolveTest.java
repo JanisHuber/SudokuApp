@@ -33,7 +33,6 @@ public class GenerateAndSolveTest {
             System.out.println(row);
         }
 
-
         Sudoku actual = solver.solve(sudoku);
 
         assertThat(actual).isNotNull();

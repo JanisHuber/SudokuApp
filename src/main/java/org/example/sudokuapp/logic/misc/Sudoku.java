@@ -1,10 +1,5 @@
 package org.example.sudokuapp.logic.misc;
 
-import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.util.Arrays;
 
 public class Sudoku {
@@ -14,7 +9,7 @@ public class Sudoku {
         this.sudoku = sudoku;
     }
 
-    public char[][] getCopy() {
+    public char[][] getCopy() { //todo
         char[][] copy = new char[9][9];
         for (int r = 0; r < 9; r++) {
             for (int c = 0; c < 9; c++) {
@@ -43,81 +38,12 @@ public class Sudoku {
     }
 
     public void saveAsPDF(String fullPath) {
-        String html = getHtmlCode();
-
-        try (OutputStream os = new FileOutputStream(fullPath)) {
-            PdfRendererBuilder builder = new PdfRendererBuilder();
-            builder.useFastMode();
-            builder.withHtmlContent(html, new File(".").toURI().toString());
-            builder.toStream(os);
-            builder.run();
-            System.out.println("PDF wurde erfolgreich erstellt.");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        PDFConverter converter = new PDFConverter();
+        converter.convertSudokuToPDF(fullPath, sudoku);
     }
 
-    private String getHtmlCode() {
-        StringBuilder html = new StringBuilder();
 
-        html.append("""
-                <!DOCTYPE html>
-                        <html lang="de">
-                        <head>
-                          <meta charset="UTF-8" />
-                          <title>Sudoku Raster</title>
-                          <style>
-                            table {
-                              border-collapse: collapse;
-                              margin: 20px auto;
-                            }
-                            td {
-                              width: 40px;
-                              height: 40px;
-                              text-align: center;
-                              vertical-align: middle;
-                              border: 1px solid #999;
-                              font-size: 20px;
-                            }
-                            tr:nth-child(3n) td {
-                              border-bottom: 2px solid #000;
-                            }
-                            tr:first-child td {
-                              border-top: 2px solid #000;
-                            }
-                            td:nth-child(3n) {
-                              border-right: 2px solid #000;
-                            }
-                            td:first-child {
-                              border-left: 2px solid #000;
-                            }
-                          </style>
-                        </head>
-                        <body>
-                          <table>
-                """);
-
-        for (char[] row : sudoku) {
-            html.append("<tr>");
-            for (char c : row) {
-                if (c == '\u0000') {
-                    html.append("<td></td>");
-                } else {
-                    html.append("<td>").append(c).append("</td>");
-                }
-            }
-            html.append("</tr>");
-        }
-
-        html.append("""
-                </table>
-                        </body>
-                        </html>
-                """);
-        return html.toString();
-    }
-
-    public int getSize() {
+    public int getFilledAmountOfCells() {
         int result = 0;
 
         for (char[] row : sudoku) {

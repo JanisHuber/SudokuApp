@@ -20,7 +20,7 @@ public class SudokuSolver {
 
         setBlockedCells(new Sudoku(sudokuArray));
 
-        if (!backtracking(sudokuArray, 0, 0, 0)) {
+        if (!backtracking(sudokuArray, 0, 0)) {
             return null;
         }
 
@@ -28,7 +28,8 @@ public class SudokuSolver {
     }
 
     public char[][] getNextStep(char[][] oldBoard) {
-        char[][] newBoard = solve(new Sudoku(Sudoku.getCopy(oldBoard))).getSudoku();
+        Sudoku sudoku = new Sudoku(oldBoard);
+        char[][] newBoard = solve(new Sudoku(sudoku.getCopy())).getSudoku();
         int temp = 0;
 
         for (int i = 0; i < 9; i++) {
@@ -47,7 +48,7 @@ public class SudokuSolver {
     }
 
 
-    private boolean backtracking(char[][] sudoku, int x, int y, int path) {
+    private boolean backtracking(char[][] sudoku, int x, int y) {
         if (y == 9) {
             return true;
         }
@@ -56,13 +57,13 @@ public class SudokuSolver {
         int nextY = (nextX == 0) ? y + 1 : y;
 
         if (blockedCells.contains(new Coordinates(y, x))) {
-            return backtracking(sudoku, nextX, nextY, path + 1);
+            return backtracking(sudoku, nextX, nextY);
         }
 
         for (int num : getShuffledNumbers()) {
             if (isValid(sudoku, x, y, (char) (num + '0'))) {
                 sudoku[y][x] = (char) (num + '0');
-                if (backtracking(sudoku, nextX, nextY, path + 1)) {
+                if (backtracking(sudoku, nextX, nextY)) {
                     solvedSudoku = new Sudoku(sudoku);
                     return true;
                 }
@@ -78,7 +79,7 @@ public class SudokuSolver {
         return numbers;
     }
 
-    public boolean isValid(char[][] board, int x, int y, char num) {
+    private boolean isValid(char[][] board, int x, int y, char num) {
         for (int i = 0; i < 9; i++) {
             if (board[y][i] == num || board[i][x] == num) {
                 return false;

@@ -39,7 +39,7 @@ public class GenerateSudoku_ViewController {
         String title;
         String content;
 
-        if (inputSudoku.getSize() < 81) {
+        if (inputSudoku.getFilledAmountOfCells() < 81) {
             title = "Invalid Sudoku";
             content = "The Sudoku is not valid. Please fill in all fields.";
             Dialog.showDialog(title, content);

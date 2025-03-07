@@ -78,8 +78,7 @@ public class SolveSudoku_ViewController {
         fileChooser.setTitle("Speicherort auswählen");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF-Dateien", "*.pdf"));
 
-        File file = fileChooser.showSaveDialog(stage);
-        return file;
+        return fileChooser.showSaveDialog(stage);
     }
 
     @FXML
