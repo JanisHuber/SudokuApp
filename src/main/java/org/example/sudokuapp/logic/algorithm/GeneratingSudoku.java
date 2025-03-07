@@ -5,7 +5,7 @@ import org.example.sudokuapp.logic.misc.Sudoku;
 public class GeneratingSudoku {
 
     public Sudoku generateSudoku(Integer difficulty) {
-        char[][] result = new SudokuSolver().solve(new Sudoku(new char[9][9])).getSudoku();
+        char[][] result = new SudokuSolver().solve(new Sudoku(new char[9][9])).getCharArray();
 
         for (int i = 0; i < difficulty / 10; i++) {
             int row = (int) (Math.random() * 9);

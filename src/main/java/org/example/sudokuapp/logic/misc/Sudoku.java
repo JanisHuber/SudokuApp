@@ -1,26 +1,64 @@
 package org.example.sudokuapp.logic.misc;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Sudoku {
-    private char[][] sudoku;
+    private List<Cell> cells = new ArrayList<>();
 
     public Sudoku(char[][] sudoku) {
-        this.sudoku = sudoku;
-    }
-
-    public char[][] getCopy() { //todo
-        char[][] copy = new char[9][9];
-        for (int r = 0; r < 9; r++) {
-            for (int c = 0; c < 9; c++) {
-                copy[r][c] = sudoku[r][c];
+        for (int i = 0; i < sudoku.length; i++) {
+            for (int j = 0; j < sudoku[i].length; j++) {
+                cells.add(new Cell(parseCharacter(sudoku[i][j]), new Coordinates(i, j)));
             }
         }
-        return copy;
     }
 
-    public char[][] getSudoku() {
-        return sudoku;
+    public List<Cell> getCells() {
+        return cells;
+    }
+
+    public char[][] getCharArray() {
+        char[][] result = new char[9][9];
+
+        forEachCell(cell -> {
+            Coordinates coordinates = cell.getCoordinates();
+            result[coordinates.row()][coordinates.column()] = cell.getChar();
+        });
+
+        return result;
+    }
+
+    public void saveAsPDF(String fullPath) {
+        PDFConverter converter = new PDFConverter();
+        converter.convertSudokuToPDF(fullPath, getCharArray());
+    }
+
+    public int getFilledAmountOfCells() {
+        AtomicInteger result = new AtomicInteger(0);
+
+        forEachCell(cell -> {
+            if (cell.isFilled()) {
+                result.getAndIncrement();
+            }
+        });
+
+        return result.get();
+    }
+
+    public void forEachCell(CellAction action) {
+        for (Cell cell : cells) {
+            action.execute(cell);
+        }
+    }
+
+    private Character parseCharacter(char c) {
+        if (c == 0 || c == ' ' || c == '\u0000') {
+            return '\u0000';
+        }
+        return c;
     }
 
     @Override
@@ -34,25 +72,11 @@ public class Sudoku {
         }
 
         Sudoku sudoku = (Sudoku) obj;
-        return Arrays.deepEquals(this.sudoku, sudoku.getSudoku());
+
+        return Arrays.deepEquals(getCharArray(), sudoku.getCharArray());
     }
 
-    public void saveAsPDF(String fullPath) {
-        PDFConverter converter = new PDFConverter();
-        converter.convertSudokuToPDF(fullPath, sudoku);
-    }
-
-
-    public int getFilledAmountOfCells() {
-        int result = 0;
-
-        for (char[] row : sudoku) {
-            for (char c : row) {
-                if (c != '\u0000') {
-                    result++;
-                }
-            }
-        }
-        return result;
+    public interface CellAction {
+        void execute(Cell cell);
     }
 }

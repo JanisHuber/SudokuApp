@@ -34,7 +34,7 @@ public class GenerateSudoku_ViewController {
     }
 
     @FXML
-    public void view_VerifySolution() { //todo: refactor
+    public void view_VerifySolution() {
         Sudoku inputSudoku = new Sudoku(sudokuViewActions.getSudoku());
         String title;
         String content;
@@ -46,8 +46,8 @@ public class GenerateSudoku_ViewController {
             return;
         }
 
-        title = SudokuValidator.validate(inputSudoku.getSudoku()) ? "Sudoku Solved" : "Sudoku Not Solved";
-        content = SudokuValidator.validate(inputSudoku.getSudoku()) ? "The Sudoku has been solved correctly." : "The Sudoku has not been solved correctly.";
+        title = SudokuValidator.validate(inputSudoku.getCharArray()) ? "Sudoku Solved" : "Sudoku Not Solved";
+        content = SudokuValidator.validate(inputSudoku.getCharArray()) ? "The Sudoku has been solved correctly." : "The Sudoku has not been solved correctly.";
         Dialog.showDialog(title, content);
     }
 
@@ -81,10 +81,10 @@ public class GenerateSudoku_ViewController {
         GeneratingSudoku generatingSudoku = new GeneratingSudoku();
 
         Sudoku generatedSudoku = generatingSudoku.generateSudoku(Integer.parseInt(txtField_SudokuDifficulty.getText()));
-        sudokuViewActions.updateSudoku(generatedSudoku.getSudoku());
+        sudokuViewActions.updateSudoku(generatedSudoku.getCharArray());
     }
 
-    private File chooseSaveLocation(Stage stage) { //todo: refactor
+    private File chooseSaveLocation(Stage stage) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Speicherort auswählen");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF-Dateien", "*.pdf"));

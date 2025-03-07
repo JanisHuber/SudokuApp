@@ -32,7 +32,7 @@ public class SolveSudoku_ViewController {
         Sudoku inputSudoku = new Sudoku(sudokuViewActions.getSudoku());
         Sudoku solvedSudoku = solver.solve(inputSudoku);
 
-        updateSudoku(solvedSudoku.getSudoku());
+        updateSudoku(solvedSudoku.getCharArray());
     }
 
     @FXML
@@ -43,7 +43,7 @@ public class SolveSudoku_ViewController {
     @FXML
     public void view_GetTipp() {
         Sudoku inputSudoku = new Sudoku(sudokuViewActions.getSudoku());
-        char[][] outputSudoku = solver.getNextStep(inputSudoku.getSudoku());
+        char[][] outputSudoku = solver.getNextStep(inputSudoku.getCharArray());
 
         updateSudoku(outputSudoku);
     }
@@ -57,7 +57,7 @@ public class SolveSudoku_ViewController {
     }
 
     @FXML
-    public void view_ImportSudoku() { //todo: refactor
+    public void view_ImportSudoku() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Sudoku-Bild auswählen");
 
@@ -73,7 +73,7 @@ public class SolveSudoku_ViewController {
         sudokuViewActions.updateSudoku(sudoku);
     }
 
-    private File chooseSaveLocation(Stage stage) { //todo: refactor
+    private File chooseSaveLocation(Stage stage) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Speicherort auswählen");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF-Dateien", "*.pdf"));

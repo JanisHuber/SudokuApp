@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -15,8 +16,9 @@ public class SudokuSolver {
     List<Coordinates> blockedCells = new ArrayList<>();
     Sudoku solvedSudoku = null;
 
+
     public Sudoku solve(Sudoku sudoku) {
-        char[][] sudokuArray = parseSudokuToArray(sudoku);
+        char[][] sudokuArray = sudoku.getCharArray();
 
         setBlockedCells(new Sudoku(sudokuArray));
 
@@ -29,21 +31,23 @@ public class SudokuSolver {
 
     public char[][] getNextStep(char[][] oldBoard) {
         Sudoku sudoku = new Sudoku(oldBoard);
-        char[][] newBoard = solve(new Sudoku(sudoku.getCopy())).getSudoku();
-        int temp = 0;
+        char[][] newBoard = solve(new Sudoku(sudoku.getCharArray())).getCharArray();
 
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (oldBoard[i][j] != '\u0000') {
-                    newBoard[i][j] = oldBoard[i][j];
+        AtomicBoolean hasNextStep = new AtomicBoolean(false);
+
+        sudoku.forEachCell(cell -> {
+            Coordinates coordinates = cell.getCoordinates();
+
+            if (newBoard[coordinates.row()][coordinates.column()] == '\u0000') {
+                if (!hasNextStep.get()) {
+                    newBoard[coordinates.row()][coordinates.column()] = cell.getChar();
+                    hasNextStep.set(true);
                 } else {
-                    if (temp > 0) {
-                        newBoard[i][j] = '\u0000';
-                    }
-                    temp++;
+                    newBoard[coordinates.row()][coordinates.column()] = '\u0000';
                 }
             }
-        }
+        });
+
         return newBoard;
     }
 
@@ -101,40 +105,11 @@ public class SudokuSolver {
     }
 
     private void setBlockedCells(Sudoku sudoku) {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (sudoku.getSudoku()[i][j] != '\u0000') {
-                    blockedCells.add(new Coordinates(i, j));
-                }
+        sudoku.forEachCell(cell -> {
+            if (cell.isFilled()) {
+                System.out.println(cell.getCoordinates().row() + " " + cell.getCoordinates().column() + "value: " + cell.getChar());
+                blockedCells.add(cell.getCoordinates());
             }
-        }
-    }
-
-    private char[][] parseSudokuToArray(Sudoku sudoku) {
-        char[][] result = new char[9][9];
-
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (sudoku.getSudoku()[i][j] == '\u0000' || (sudoku.getSudoku()[i][j] < '1' || sudoku.getSudoku()[i][j] > '9')) {
-                    result[i][j] = '\u0000';
-                } else {
-                    result[i][j] = sudoku.getSudoku()[i][j];
-                }
-            }
-        }
-
-        return result;
-    }
-
-    private void forEachCell(CellAction action) {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                action.execute(i, j);
-            }
-        }
-    }
-
-    interface CellAction {
-        void execute(int row, int col);
+        });
     }
 }
