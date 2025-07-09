@@ -29,8 +29,13 @@ public class SudokuOCR {
             if (recognizedText.charAt(0) == '9') {
                 instance.setLanguage("eng");
                 recognizedText = instance.doOCR(image).trim();
+                if (recognizedText.isEmpty()) {
+                    System.err.println("Zelle leer (nach erneutem OCR)");
+                    return ' ';
+                }
                 return recognizedText.charAt(0);
             }
+            System.out.println("Erkanntes Zeichen: " + recognizedText.charAt(0));
             return recognizedText.charAt(0);
         } catch (TesseractException e) {
             e.printStackTrace();

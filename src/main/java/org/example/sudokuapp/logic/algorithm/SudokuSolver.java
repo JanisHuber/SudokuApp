@@ -107,7 +107,6 @@ public class SudokuSolver {
     private void setBlockedCells(Sudoku sudoku) {
         sudoku.forEachCell(cell -> {
             if (cell.isFilled()) {
-                System.out.println(cell.getCoordinates().row() + " " + cell.getCoordinates().column() + "value: " + cell.getChar());
                 blockedCells.add(cell.getCoordinates());
             }
         });

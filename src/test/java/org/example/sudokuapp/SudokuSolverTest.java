@@ -87,8 +87,8 @@ class SudokuSolverTest {
 
         Sudoku actual = solver.solve(input);
 
-        System.out.println("Expected: " + Arrays.deepToString(expected.getSudoku()));
-        System.out.println("Actual: " + Arrays.deepToString(actual.getSudoku()));
+        System.out.println("Expected: " + Arrays.deepToString(expected.getCharArray()));
+        System.out.println("Actual: " + Arrays.deepToString(actual.getCharArray()));
         assertThat(actual).isEqualTo(expected);
     }
 }

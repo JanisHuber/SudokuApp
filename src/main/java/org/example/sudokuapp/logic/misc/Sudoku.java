@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class Sudoku {
     private List<Cell> cells = new ArrayList<>();
@@ -48,9 +51,9 @@ public class Sudoku {
         return result.get();
     }
 
-    public void forEachCell(CellAction action) {
+    public void forEachCell(Consumer<Cell> action) {
         for (Cell cell : cells) {
-            action.execute(cell);
+            action.accept(cell);
         }
     }
 
@@ -74,9 +77,5 @@ public class Sudoku {
         Sudoku sudoku = (Sudoku) obj;
 
         return Arrays.deepEquals(getCharArray(), sudoku.getCharArray());
-    }
-
-    public interface CellAction {
-        void execute(Cell cell);
     }
 }

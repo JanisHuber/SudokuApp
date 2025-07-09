@@ -29,7 +29,7 @@ public class GenerateAndSolveTest {
     void solveSudoku(Sudoku sudoku) {
         SudokuSolver solver = new SudokuSolver();
         System.out.println("Generated Sudoku:");
-        for (char[] row : sudoku.getSudoku()) {
+        for (char[] row : sudoku.getCharArray()) {
             System.out.println(row);
         }
 
